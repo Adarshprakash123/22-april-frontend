@@ -1,26 +1,30 @@
-"use Client"
+"use client"
 
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { clearAuth, useStoredUser } from "../lib/auth"
 
 export default function Navbar(){
     const router=useRouter();
-
-    const user=typeof window!=="undefined" ? JSON.parse(localStorage.getItem("user")):null
+    const user=useStoredUser();
 
     const logout=()=>{
-        localStorage.clear();
+        clearAuth();
         router.push("/login")
     }
 
     return(
-        <nav>
+        <nav className="site-nav">
+          <Link href="/" className="brand">StoryBoard</Link>
+          <div className="nav-links">
           <Link href="/">Home</Link>
           {
             user ? (
                 <>
-                  <span>{user.username}</span>
-                  <button onClick={logout}>Logout</button>
+                  {user.isAdmin && <Link href="/admin/posts">Create</Link>}
+                  {user.isAdmin && <Link href="/admin/dashboard">Admin</Link>}
+                  <span className="nav-user">{user.username}</span>
+                  <button className="secondary-action nav-logout" onClick={logout}>Logout</button>
                 </>
             ):(
                 <>
@@ -29,6 +33,7 @@ export default function Navbar(){
                 </>
             )
           }
+          </div>
         </nav>
     )
 }

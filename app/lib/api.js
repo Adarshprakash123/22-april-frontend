@@ -2,13 +2,13 @@
 import axios from "axios";
 
 const API=axios.create({
-    baseURL:"https://two2-april.onrender.com/api"
+    baseURL:process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000/api"
 })
 
 API.interceptors.request.use((req)=>{
-    if(typeof window!=="window"){
+    if(typeof window!=="undefined"){
         const token=localStorage.getItem("token")
-        if(token) req.headers.Authorization=token;
+        if(token) req.headers.Authorization=`Bearer ${token}`;
     }
     return req;
 })
