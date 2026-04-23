@@ -10,15 +10,16 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className="h-full antialiased">
       <head>
+        <meta name="google-adsense-account" content="ca-pub-5787589281140429" />
+      </head>
+
+      <body className="min-h-full flex flex-col">
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5787589281140429"
           crossOrigin="anonymous"
           strategy="afterInteractive"
         />
-      </head>
-
-      <body className="min-h-full flex flex-col">
         {children}
       </body>
     </html>
