@@ -6,9 +6,7 @@ import Navbar from "./consponents/Navbar";
 import { useEffect, useState } from "react";
 import { useStoredUser } from "./lib/auth";
 
-function AdSlot({ label, className="" }){
-  return <div className={`ad-slot ${className}`}>{label}</div>
-}
+import DummyAd from "./consponents/DummyAd";
 
 export default function Home() {
   const [posts,setPosts]=useState([]);
@@ -35,7 +33,7 @@ export default function Home() {
       <div>
         <Navbar/>
         <main className="page-shell">
-          <AdSlot label="Top banner ad" className="ad-wide" />
+          <DummyAd type="horizontal" />
 
           <section className="hero-blog">
             <div>
@@ -74,7 +72,7 @@ export default function Home() {
                   <button className="danger-button" onClick={()=>deletePost(featuredPost._id)} title="Delete post">Delete</button>
                 )}
               </article>
-              <AdSlot label="Sidebar ad" className="ad-tall" />
+              <DummyAd type="vertical" />
             </section>
           )}
 
@@ -94,14 +92,14 @@ export default function Home() {
                   {user?.isAdmin && (
                     <button className="danger-button" onClick={()=>deletePost(post._id)} title="Delete post">Delete</button>
                   )}
-                  {(index === 0 || index === 2) && <AdSlot label="In-content ad" />}
+                  {(index === 0 || index === 2) && <DummyAd type="horizontal" />}
                 </article>
               ))}
               {!loading && posts.length === 0 && <p className="status-message">No posts yet. Admin can create the first one.</p>}
             </div>
             <aside className="sticky-column">
-              <AdSlot label="Sticky ad" />
-              <AdSlot label="Bottom banner ad" />
+              <DummyAd type="square" />
+              <DummyAd type="horizontal" />
             </aside>
           </section>
         </main>
